@@ -176,6 +176,11 @@
 			<artifactId>Spigot_1_20_2</artifactId>
 			<version>3.9.24</version>
 		</dependency>
+		<dependency>
+			<groupId>com.gitlab.blockstack</groupId>
+			<artifactId>Spigot_1_21</artifactId>
+			<version>3.9.24</version>
+		</dependency>
 		<!--Artmap plugin compatibility addons-->
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>

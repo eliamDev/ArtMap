@@ -18,6 +18,7 @@ import me.Fupery.ArtMap.Compatibility.impl.GriefDefenderCompat;
 import me.Fupery.ArtMap.Compatibility.impl.GriefPreventionCompat;
 import me.Fupery.ArtMap.Compatibility.impl.HeadRetrieval_1_13;
 import me.Fupery.ArtMap.Compatibility.impl.HeadRetrieval_1_20_2;
+import me.Fupery.ArtMap.Compatibility.impl.HeadRetrieval_1_21;
 import me.Fupery.ArtMap.Compatibility.impl.MarriageMasterCompat;
 import me.Fupery.ArtMap.Compatibility.impl.Palette_1_13;
 import me.Fupery.ArtMap.Compatibility.impl.Palette_1_14;
@@ -101,8 +102,10 @@ public class CompatibilityManager implements RegionHandler {
         //which head loading code should we be using
         if(version.isLessThan(BukkitVersion.v1_20_2)) {
             headsRetriever = new HeadRetrieval_1_13();
-        } else {
+        } else if(version.isLessThan(BukkitVersion.v1_21)) {
             headsRetriever = new HeadRetrieval_1_20_2();
+        } else {
+            headsRetriever = new HeadRetrieval_1_21();
         }
     }
 
