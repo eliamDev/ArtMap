@@ -12,6 +12,7 @@ import me.Fupery.ArtMap.Painting.Brush;
 import me.Fupery.ArtMap.Painting.CachedPixel;
 import me.Fupery.ArtMap.Painting.CanvasRenderer;
 import me.Fupery.ArtMap.api.Colour.ArtDye;
+import me.Fupery.ArtMap.api.Colour.ShadingDye;
 
 public class Fill extends Brush {
     private final ArrayList<CachedPixel> lastFill;
@@ -69,12 +70,19 @@ public class Fill extends Brush {
         final byte[] pixel = getCurrentPixel();
 
         if (pixel != null) {
-
             final boolean[][] coloured = new boolean[axisLength][axisLength];
             final byte clickedColour = getPixelBuffer()[pixel[0]][pixel[1]];
-            final byte setColour = colour.getDyeColour(clickedColour);
 
-            ArtMap.instance().getScheduler().ASYNC.run(() -> fillBucket(coloured, pixel[0], pixel[1], clickedColour, setColour));
+            if (colour instanceof ShadingDye shadingDye) {
+                // Para sombreado: aplicar la transformación a cada píxel individualmente,
+                // buscando por color base (ignora el nivel de sombra actual del píxel)
+                ArtMap.instance().getScheduler().ASYNC.run(() ->
+                        fillBucketShading(coloured, pixel[0], pixel[1], clickedColour, shadingDye));
+            } else {
+                final byte setColour = colour.getDyeColour(clickedColour);
+                ArtMap.instance().getScheduler().ASYNC.run(() ->
+                        fillBucket(coloured, pixel[0], pixel[1], clickedColour, setColour));
+            }
         }
     }
 
@@ -89,6 +97,34 @@ public class Fill extends Brush {
 
             ArtMap.instance().getScheduler().ASYNC.run(() -> fillBucket(coloured, pixel[0], pixel[1], clickedColour, setColour));
         }
+    }
+
+    /**
+     * Versión de relleno para ShadingDye (carbón/pluma).
+     * Busca píxeles conectados que tengan el mismo color BASE que el píxel clickeado
+     * (ignora el nivel de sombra actual), y aplica la transformación de sombreado
+     * a cada píxel individualmente según su propio color.
+     */
+    private void fillBucketShading(boolean[][] coloured, int x, int y, byte sourceColour, ShadingDye shade) {
+        if (x < 0 || y < 0 || x >= axisLength || y >= axisLength) return;
+        if (coloured[x][y]) return;
+
+        byte currentColour = getPixelBuffer()[x][y];
+
+        // Comparar por color base (dividir entre 4 para ignorar el nivel de sombra)
+        int sourceBase  = (sourceColour  & 0xFF) / 4;
+        int currentBase = (currentColour & 0xFF) / 4;
+        if (currentBase != sourceBase) return;
+
+        byte newColour = shade.getDyeColour(currentColour);
+        addPixel(x, y, newColour);
+        coloured[x][y] = true;
+        lastFill.add(new CachedPixel(x, y, currentColour)); // guarda el color original de ESTE píxel
+
+        fillBucketShading(coloured, x - 1, y, sourceColour, shade);
+        fillBucketShading(coloured, x + 1, y, sourceColour, shade);
+        fillBucketShading(coloured, x, y - 1, sourceColour, shade);
+        fillBucketShading(coloured, x, y + 1, sourceColour, shade);
     }
 
     private void fillBucket(boolean[][] coloured, int x, int y, byte sourceColour, byte newColour) {
