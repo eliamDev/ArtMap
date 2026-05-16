@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Map.Entry;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -142,7 +144,10 @@ public class CustomItem {
         if(meta == null) {
             return null;
         }
-        if (name != null) meta.setDisplayName(name);
+        // Usa itemName() en lugar de displayName() para que el nombre NO aparezca
+        // como etiqueta flotante al apuntar un marco de ítem en el mundo.
+        // El nombre sigue siendo visible en el tooltip del inventario.
+        if (name != null) meta.itemName(Component.text(name).decoration(TextDecoration.ITALIC, false));
         List<String> lore = new ArrayList<>();
         lore.add(key);
         if (tooltip.length > 0) Collections.addAll(lore, tooltip);

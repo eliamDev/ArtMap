@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.validation.constraints.NotNull;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
@@ -67,8 +69,18 @@ public class Canvas {
 		
 		//Is this a copy artwork?
 		if(ArtItem.isCopyArtwork(item)) {
-			//Extract id, artist, and original title
-			Optional<MapArt> original = ArtMap.instance().getArtDatabase().getArtwork(meta.getDisplayName());
+			//Extract id, artist, and original title.
+			// Nuevos mapas usan itemName() (sin etiqueta en marcos); los mapas
+			// creados antes del cambio usan displayName() como fallback.
+			String copyTitle = null;
+			Component nameComp = meta.itemName();
+			if (nameComp != null) {
+				copyTitle = PlainTextComponentSerializer.plainText().serialize(nameComp);
+			}
+			if (copyTitle == null || copyTitle.isEmpty()) {
+				copyTitle = meta.getDisplayName(); // Compatibilidad con mapas anteriores
+			}
+			Optional<MapArt> original = ArtMap.instance().getArtDatabase().getArtwork(copyTitle);
 			if(original.isPresent()) {	//There is a chance the original was deleted at which point we act like its an unfished artwork
 				return Optional.of(new CanvasCopy(new Map(mapId), original.get()));
 			} else {
