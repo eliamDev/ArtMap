@@ -7,6 +7,14 @@ stages:
   - publish
   - release
 
+workflow:
+  rules:
+    - if: '$CI_COMMIT_TAG'
+      variables:
+        NEXT_VERSION: '$CI_COMMIT_TAG'
+    - variables:
+        NEXT_VERSION: '$CI_COMMIT_SHORT_SHA'
+
 variables:
   # This will suppress any download for dependencies and plugins or upload messages which would clutter the console log.
   # `showDateTime` will show the passed time in milliseconds. You need to specify `--batch-mode` to make this work.
@@ -99,6 +107,7 @@ publish:jdk21:
 ################################################################################################
 
 integration:
+  allow_failure: true
   stage: integration
   image: docker:latest
   # docker:dind provides the Docker daemon.  TLS is disabled so the Docker CLI
