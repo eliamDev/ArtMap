@@ -30,9 +30,10 @@ public class HeadRetrieval_1_21 implements IHeadsRetriever {
         meta.setDisplayName(player.getName());
         head.setItemMeta(meta);
         PlayerProfile profile = meta.getOwnerProfile();
-        if(profile.getTextures() != null && profile.getTextures().isEmpty()) {
+        if (profile != null && profile.getTextures() != null && !profile.getTextures().isEmpty()
+                && profile.getTextures().getSkin() != null) {
             PlayerTextures textures = profile.getTextures();
-            return Optional.of(new TextureData(player.getName(),textures.getSkin().toString(),HeadCacheType.URL));
+            return Optional.of(new TextureData(player.getName(), textures.getSkin().toString(), HeadCacheType.URL));
         }
         return Optional.empty();
     }
