@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.gitlab.blockstack</groupId>
 		<artifactId>ArtMap-parent</artifactId>
-		<version>3.9.25-diaCero</version>
+		<version>3.9.26-diaCero</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<build>
@@ -136,7 +136,7 @@
 			<version>3.133.2</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- Paper API primero para que itemName() esté disponible en compilación -->
+		<!-- Paper API primero para que itemName() estï¿½ disponible en compilaciï¿½n -->
 		<dependency>
 			<groupId>io.papermc.paper</groupId>
 			<artifactId>paper-api</artifactId>
@@ -166,123 +166,123 @@
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>Spigot_1_13</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>Spigot_1_14</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>Spigot_1_16</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>Spigot_1_18</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>Spigot_1_20_2</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>Spigot_1_21</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<!--Artmap plugin compatibility addons-->
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>ASkyBlock</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>BentoBox</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>CMI</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>Essentials</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>Factions</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>GriefDefender</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>GriefPrevention</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>MarriageMaster</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>PlotSquared4</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>PlotSquared5</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>PlotSquared6</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>PlotSquared7</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>RedProtect</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>Residence</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>SabreFactions</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>Towny</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>USkyBlock</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gitlab.blockstack</groupId>
 			<artifactId>WorldGuard</artifactId>
-			<version>3.9.25-diaCero</version>
+			<version>3.9.26-diaCero</version>
 		</dependency>
 		<!--  Mojang dependency -->
 		<dependency>

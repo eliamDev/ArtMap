@@ -53,20 +53,25 @@ public class Version implements Comparable<Version> {
      */
     public static Version getBukkitVersion(String bukkit) {
         try {
-            
-            String[] ver = bukkit.substring(0, bukkit.indexOf('-')).split("\\.");
-            //handle new paper builds with new version string 26.1.2.build.60-stable
-            if(bukkit.contains("build")) {
-                ver = bukkit.substring(0, bukkit.indexOf(".build")).split("\\.");
+            String clean = bukkit;
+            // handle new paper builds with new version string e.g. 26.1.2.build.60-stable or 26.3.build.12
+            if (clean.contains(".build")) {
+                clean = clean.substring(0, clean.indexOf(".build"));
+            } else if (clean.contains("-")) {
+                clean = clean.substring(0, clean.indexOf('-'));
             }
+            String[] ver = clean.split("\\.");
             List<Integer> verNumbers = new ArrayList<>();
             for (int i = 0; i < ver.length; i++) {
-                verNumbers.add(Integer.parseInt(ver[i]));
+                String numPart = ver[i].replaceAll("[^0-9].*$", "");
+                if (!numPart.isEmpty()) {
+                    verNumbers.add(Integer.parseInt(numPart));
+                }
             }
             return new Version(verNumbers.stream().mapToInt(Integer::intValue).toArray());
-        } catch(Exception e) {
-            throw new RuntimeException("Failed to parse bukkit version! :: " + bukkit,e);
-        } 
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse bukkit version! :: " + bukkit, e);
+        }
     }
 
     @Override

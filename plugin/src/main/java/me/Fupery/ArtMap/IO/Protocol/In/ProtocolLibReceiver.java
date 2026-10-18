@@ -45,23 +45,34 @@ public class ProtocolLibReceiver extends PacketReceiver {
 
         } else if (packet.getType() == PacketType.Play.Client.USE_ENTITY) {
             try {
-                EnumWrappers.EntityUseAction action = packet.getEntityUseActions().read(0);
-            return new PacketInteract(
-                action == EnumWrappers.EntityUseAction.ATTACK ? InteractType.ATTACK : InteractType.INTERACT);
-            } catch (Exception e) {
-                //Then we must be on 1.17+
+                EnumWrappers.EntityUseAction action = packet.getEnumEntityUseActions().read(0).getAction();
+                return new PacketInteract(
+                        action == EnumWrappers.EntityUseAction.ATTACK ? InteractType.ATTACK : InteractType.INTERACT);
+            } catch (Exception e0) {
                 try {
-                    Object enumEntityUseActionObject = packet.getModifier().read(1);
-                    Method method = enumEntityUseActionObject.getClass().getMethod("a");
-                    method.setAccessible(true);
-                    Object nmsAction = method.invoke(enumEntityUseActionObject);
+                    EnumWrappers.EntityUseAction action = packet.getEntityUseActions().read(0);
                     return new PacketInteract(
-						nmsAction.toString().equals("ATTACK") ||	// 1.17.1
-						nmsAction.toString().equals("b") ?			// 1.17
-							InteractType.ATTACK : InteractType.INTERACT
-					);
-                } catch (Exception e1) {
-                    ArtMap.instance().getLogger().log(Level.SEVERE, "Error reading USE_ENTITY packet!", e1);
+                            action == EnumWrappers.EntityUseAction.ATTACK ? InteractType.ATTACK : InteractType.INTERACT);
+                } catch (Exception e) {
+                    // Fallback reflection for 1.17+ (Mojang-mapped Paper getType() or Spigot obfuscated a())
+                    try {
+                        Object enumEntityUseActionObject = packet.getModifier().read(1);
+                        Method method;
+                        try {
+                            method = enumEntityUseActionObject.getClass().getMethod("getType");
+                        } catch (NoSuchMethodException nsme) {
+                            method = enumEntityUseActionObject.getClass().getMethod("a");
+                        }
+                        method.setAccessible(true);
+                        Object nmsAction = method.invoke(enumEntityUseActionObject);
+                        return new PacketInteract(
+                                nmsAction.toString().equals("ATTACK") || // 1.17.1+ / Mojang-mapped
+                                nmsAction.toString().equals("b") ?       // 1.17 obfuscated
+                                        InteractType.ATTACK : InteractType.INTERACT
+                        );
+                    } catch (Exception e1) {
+                        ArtMap.instance().getLogger().log(Level.SEVERE, "Error reading USE_ENTITY packet!", e1);
+                    }
                 }
             }
         }
